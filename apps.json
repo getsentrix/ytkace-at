@@ -1,0 +1,34 @@
+{
+  "name": "YTKACE Community Source",
+  "identifier": "com.community.ytkace-source",
+  "apps": [
+    {
+      "name": "YTKACE",
+      "bundleIdentifier": "com.google.ios.youtube",
+      "developerName": "itzzace",
+      "subtitle": "Open-source YouTube enhancer and downloader",
+      "localizedDescription": "YTKACE is a free, open-source YouTube enhancer and downloader for iOS with SponsorBlock, background playback, player controls, and interface customization.",
+      "iconURL": "https://raw.githubusercontent.com/getsentrix/ytkace-at/main/logo.png",
+      "tintColor": "BF0013",
+      "version": "1.0.1",
+      "versionDate": "2026-09-21T19:47:04Z",
+      "versionDescription": "by @itzzace0\n\nWhat's new:\n• Updated to YouTube 21.38.2\n• Download subtitles with your videos\n• Transcript button to copy or share a video's captions\n• Added toggle to Open videos paused instead of playing right away\n• Search bar in YTKACE settings\n\nFixed:\n• Crash on iOS 15\n• Prevent Open in Shorts doing nothing\n• Stop Autoplay doing nothing\n• Queue not appearing until the video was reopened\n• Captions turning off after Playback Fix recovers a video\n\nYouTube 21.38.2 requires iOS 17, so there are two IPAs:\n• `YTKACE_1.0.1_YouTube_21.38.2.ipa` for iOS 17 and newer\n• `YTKACE_1.0.1_YouTube_iOS16_21.33.6.ipa` for iOS 16\n",
+      "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v1.0.1/YTKACE_1.0.1_YouTube_21.38.2.ipa",
+      "size": 137039590
+    },
+    {
+      "name": "YTKACE (iOS 16 Legacy)",
+      "bundleIdentifier": "com.google.ios.youtube.legacy",
+      "developerName": "itzzace",
+      "subtitle": "YTKACE YouTube client compatible with iOS 16",
+      "localizedDescription": "Legacy build of YTKACE with SponsorBlock, background playback, and downloader compatible with iOS 16.",
+      "iconURL": "https://raw.githubusercontent.com/getsentrix/ytkace-at/main/logo.png",
+      "tintColor": "BF0013",
+      "version": "1.0.1",
+      "versionDate": "2026-09-21T19:47:04Z",
+      "versionDescription": "by @itzzace0\n\nWhat's new:\n• Updated to YouTube 21.38.2\n• Download subtitles with your videos\n• Transcript button to copy or share a video's captions\n• Added toggle to Open videos paused instead of playing right away\n• Search bar in YTKACE settings\n\nFixed:\n• Crash on iOS 15\n• Prevent Open in Shorts doing nothing\n• Stop Autoplay doing nothing\n• Queue not appearing until the video was reopened\n• Captions turning off after Playback Fix recovers a video\n\nYouTube 21.38.2 requires iOS 17, so there are two IPAs:\n• `YTKACE_1.0.1_YouTube_21.38.2.ipa` for iOS 17 and newer\n• `YTKACE_1.0.1_YouTube_iOS16_21.33.6.ipa` for iOS 16\n",
+      "downloadURL": "https://github.com/itzzace/ytkace/releases/download/v1.0.1/YTKACE_1.0.1_YouTube_iOS16_21.33.6.ipa",
+      "size": 133706497
+    }
+  ]
+}

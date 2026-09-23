@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YTKACE AltStore Source</title>
+  <meta name="description" content="Official community AltStore and SideStore repository for YTKACE.">
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- OpenGraph / Social Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="YTKACE AltStore Source">
+  <meta property="og:description" content="Community AltStore, SideStore & LiveContainer source for YTKACE. Enhanced YouTube with SponsorBlock and downloads.">
+  <meta property="og:image" content="logo.png">
+
+  <style>
+    :root {
+      --bg-color: #0b0b0c;
+      --card-bg: rgba(22, 22, 26, 0.78);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #bf0013;
+      --accent-hover: #9c000f;
+      --accent-soft: rgba(191, 0, 19, 0.15);
+      --text: #f5f5f7;
+      --text-muted: #9a9aa2;
+      --code-bg: #141416;
+      --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      line-height: 1.5;
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(191, 0, 19, 0.16) 0%, transparent 55%),
+        radial-gradient(circle at 90% 80%, rgba(191, 0, 19, 0.06) 0%, transparent 45%);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 580px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 36px 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      margin-bottom: 20px;
+      object-fit: cover;
+      background: #141416;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .badges {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .badge.highlight {
+      color: #ff6b6e;
+      background: var(--accent-soft);
+      border-color: rgba(191, 0, 19, 0.35);
+    }
+
+    .section-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .url-box {
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 6px 6px 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .url-text {
+      font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem;
+      color: #e6e8ee;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      user-select: all;
+    }
+
+    .url-text::-webkit-scrollbar {
+      display: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: none;
+      white-space: nowrap;
+    }
+
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .btn-copy:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-copy.copied {
+      background: #2e7d32;
+      color: #fff;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    @media (max-width: 520px) {
+      .actions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .instructions {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .instructions ol {
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+
+    .instructions li {
+      margin-bottom: 6px;
+    }
+
+    .instructions li:last-child {
+      margin-bottom: 0;
+    }
+
+    .instructions strong {
+      color: var(--text);
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <img src="logo.png" alt="YTKACE Logo" class="app-icon">
+      <h1>YTKACE AltStore Source</h1>
+      <p class="subtitle">Community AltStore, SideStore & LiveContainer repository for YTKACE YouTube client.</p>
+
+      <div class="badges">
+        <span class="badge highlight" id="badge-version">Version v1.0.1</span>
+        <span class="badge" id="badge-size">~137 MB</span>
+        <span class="badge">Auto-Updated (12h)</span>
+      </div>
+
+      <div class="section-title">Repository Link</div>
+      <div class="url-box">
+        <span class="url-text" id="repo-url">https://getsentrix.github.io/ytkace-at/apps.json</span>
+        <button class="btn btn-copy" id="copy-btn" onclick="copyRepoURL()">
+          <span id="copy-text">Copy</span>
+        </button>
+      </div>
+
+      <div class="actions-grid">
+        <a id="altstore-link" href="altstore://source?url=https://getsentrix.github.io/ytkace-at/apps.json" class="btn btn-primary">
+          📲 Add to AltStore
+        </a>
+        <a id="sidestore-link" href="sidestore://source?url=https://getsentrix.github.io/ytkace-at/apps.json" class="btn btn-secondary">
+          ⚡ Add to SideStore
+        </a>
+        <a id="livecontainer-link" href="livecontainer://source?url=https://getsentrix.github.io/ytkace-at/apps.json" class="btn btn-secondary">
+          📦 Add to LiveContainer
+        </a>
+      </div>
+
+      <div class="instructions">
+        <strong>Compatible Sideloaders:</strong>
+        <p style="margin-top: 4px; margin-bottom: 10px;">SideStore, AltStore, LiveContainer, Feather, Scarlet, TrollStore, and Sideloadly.</p>
+        <strong>Manual Setup:</strong>
+        <ol>
+          <li>Copy the repository link above.</li>
+          <li>In your sideloader (AltStore, SideStore, or LiveContainer), go to the <strong>Sources</strong> tab.</li>
+          <li>Tap <strong>+</strong> and paste the link.</li>
+        </ol>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        Powered by <a href="https://github.com/getsentrix/ytkace-at" target="_blank" rel="noopener">getsentrix/ytkace-at</a>
+        · App developed by <a href="https://github.com/itzzace/ytkace" target="_blank" rel="noopener">itzzace</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    const repoUrl = window.location.origin + window.location.pathname.replace(/\/+$/, '') + '/apps.json';
+    const repoUrlEl = document.getElementById('repo-url');
+    if (repoUrlEl && window.location.protocol.startsWith('http')) {
+      repoUrlEl.textContent = repoUrl;
+      document.getElementById('altstore-link').href = 'altstore://source?url=' + encodeURIComponent(repoUrl);
+      document.getElementById('sidestore-link').href = 'sidestore://source?url=' + encodeURIComponent(repoUrl);
+      document.getElementById('livecontainer-link').href = 'livecontainer://source?url=' + encodeURIComponent(repoUrl);
+    }
+
+    function copyRepoURL() {
+      const url = document.getElementById('repo-url').textContent;
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const text = document.getElementById('copy-text');
+        btn.classList.add('copied');
+        text.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          text.textContent = 'Copy';
+        }, 2000);
+      });
+    }
+
+    // Dynamically load latest version and details from apps.json
+    fetch('apps.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data.apps && data.apps.length > 0) {
+          const app = data.apps[0];
+          if (app.version) {
+            document.getElementById('badge-version').textContent = 'Version v' + app.version;
+          }
+          if (app.size) {
+            const sizeMB = (app.size / (1024 * 1024)).toFixed(1);
+            document.getElementById('badge-size').textContent = sizeMB + ' MB';
+          }
+        }
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>
