@@ -1,0 +1,33 @@
+name: Update AltStore Source
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'  # Runs every 12 hours
+  workflow_dispatch:        # Allows running manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Fetch Latest Release and Generate JSON
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python update.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add apps.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update YTKACE release" && git push)
